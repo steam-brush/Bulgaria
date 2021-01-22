@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+
+<script src="js/jquery.min.js"></script>
+
+    <script>
+    function set_validator_errors(){
+        orderValidator.errorTitle = 'Моля, поправете следните грешки'; 
+
+        orderValidator.errorNameField = 'Име'; 
+        orderValidator.errorNameMess = 'Въведете вашето име'; 
+        
+        orderValidator.errorPhoneField = 'Телефон за връзка'; 
+        orderValidator.errorPhoneMess = 'Въведете правилния телефонен номер'; 
+        
+        orderValidator.errorAddress = 'Въведете правилния адрес'; 
+        orderValidator.errorRequired = 'задължително поле'; 
+        orderValidator.errorMaxLength = 'валиден максимум {1} знак'; 
+        orderValidator.errorMinLength = 'валиден минимум {1} знак'; 
+        orderValidator.errorEmailField = 'E-mail';
+        orderValidator.errorEmail = 'Невалиден имейл е посочен';
+        }
+    </script>
+    
+<script>
+
+
+    setOffer: function (offerId) {
+        if (offerId == this._setOfferId) {
+            return ;
+        }
+        this._setOfferId = offerId;
+        if (offerId) {
+            var offer = app.offers[offerId];
+            var previousOffer = app.currentOffer;
+            app.currentOffer = offer;
+            var event = this.jq.Event("offerchange");
+            event.previousOffer = previousOffer;
+            event.currentOffer = app.currentOffer;
+            this.jq(document).trigger(event);
+            this.updatePage(offer);
+        } else {
+            $('input[name=country]').val('');
+        }
+    },
+    
+    updatePage: function(offer) {
+        $('x-newprice').html(offer.price);
+        $('x-oldprice').html(offer.price2);
+        $('x-currency').html(offer.currency.name);
+        $('input[name=offer], select[name=offer]').val(offer.id);
+        $('input[name=country]').val(offer.country.code);
+    },
+
+    blockForm: function() {
+        // Блокируем кнопки при отправке формы
+        $('input[type=submit]', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        $('button', $(this)).prop( 'disabled', true ).attr( 'disabled', true );
+        app.incompleteOrder.lock = true;
+        clearTimeout(app.incompleteOrder.timer);
+    },
+
+    unblockForm: function() {
+        $('input[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        $('button[type=submit]', $(this)).prop( 'disabled', false ).attr( 'disabled', false );
+        app.incompleteOrder.lock = false;
+        clearTimeout(app.incompleteOrder.timer);
+    }
+
+};
+
+
+</script><script src="js/form.validate.js"></script>
+<script src="js/form.incomplete.js"></script>
+<script src="js/main2.js"></script>
+
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>Steam brush</title>
+    <link href="css/css.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/fonts.css" rel="stylesheet">
+  <link href="css/adapt.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/dop.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="lang.css@v2.1.4">
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/count.js"></script>
+
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body class="body">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog cons-dialog" role="document">
+      <div class="modal-content cons-modal">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title main-act" id="myModalLabel">ПРИБЪРЗВАЙТЕ ДА КУПИТЕ <br><span>С ОТСТЪПКА -50%</span></h4>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="https://healthbestblog.space/cpatl/api.php" class="al-form" name="form-1">
+
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="BG" selected="selected" value="21977">
+            Болгария        </option>
+    </select>
+
+                <div class="input-wrapper">
+              <input id="name1" name="name" type="text" class="main-name" placeholder="Вашето име" required>
+              <label for="name1"></label>
+            </div>
+            <div class="input-wrapper">
+              <input id="phone1" name="phone" type="tel" class="main-tell" placeholder="Вкарайте тук вашият номер на телефона" required>
+              <label for="phone1"></label>
+            </div>
+            <button type="submit" class="feedback main-button">ПОРЪЧАЙ с отстъпка -50%</button>
+                         <input type="hidden" name="stream_hid" value="nGNFQ38Y">
+      <input type="hidden" name="offer_id" value="2486">
+
+      
+      <input type="hidden" name="country" value="BG"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2 col-sm-6 col-xs-8">
+          <div class="top-logo">STEAM BRUSH</div>
+        </div>
+        <div class="col-md-3 col-md-push-7 col-sm-6">
+          <div class="top-button" data-toggle="modal" data-target="#myModal">Поръчай те STEAM BRUSH</div>
+        </div>
+        <div class="col-md-7 col-md-pull-3 col-sm-12 col-xs-4">
+          <ul class="top-menu">
+            <li><a href="#ex1">8 ПРИЧИНИ ЗА ДА КУПИТЕ</a></li>
+            <li><a href="#ex2">ЗАЩО ТОЧНО <span>STEAM BRUSH</span></a></li>
+            <li><a href="#ex3">КОМПЛЕКТАЦИЯ</a></li>
+            <li><a href="#ex4">ОТЗИВИ</a></li>
+          </ul>
+          <nav id="mobile-menu"><a href="#" onclick="document.location.hash=''; return false;" id="menu-icon">
+              <div class="icon-list icon2x"></div>
+            </a>
+            <div class="menu-mobile-menu-container">
+              <ul id="menu-mobile-menu" class="menu">
+                <li><a href="#ex1">8 ПРИЧИНИ ЗА ДА КУПИТЕ</a></li>
+                <li><a href="#ex2">ЗАЩО ТОЧНО <span>STEAM BRUSH</span></a></li>
+                <li><a href="#ex3">КОМПЛЕКТАЦИЯ</a></li>
+                <li><a href="#ex4">ОТЗИВИ</a></li>
+                <li data-toggle="modal" data-target="#myModal">Поръчай те STEAM BRUSH</li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="container">
+      <div class="main-top">УМОРИХТЕ СЕ ОТ КОНВЕНЦИОНАЛНИТЕ ЮТИИ? <br>
+        <p>ПОБЪРЗАЙТЕ ДА КУПИТЕ ПАРНАТА ЮТИЯ STEAM BRUSH</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 main-form">
+          <div class="main-act">ПРИБЪРЗВАЙТЕ ДА КУПИТЕ <br><span>С ОТСТЪПКА -50%</span></div>
+          <form method="POST" class="al-form" action="https://healthbestblog.space/cpatl/api.php" name="form-1">
+
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="BG" selected="selected" value="21977">
+            Болгария        </option>
+    </select>
+
+                <div class="input-wrapper">
+              <input id="name2" name="name" type="text" class="main-name" placeholder="Вашето име" required>
+              <label for="name2"></label>
+            </div>
+            <div class="input-wrapper">
+              <input id="phone2" name="phone" type="tel" class="main-tell" placeholder="Вкарайте тук вашият номер на телефона" required>
+              <label for="phone2"></label>
+            </div>
+            <button type="submit" class="feedback main-button">ПОРЪЧАЙ с отстъпка -50%</button>
+                     <input type="hidden" name="stream_hid" value="nGNFQ38Y">
+      <input type="hidden" name="offer_id" value="2486">
+
+      
+      <input type="hidden" name="country" value="BG"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+          </form>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="timer">
+            <div class="main-timer">До края на промоцията се остана</div>
+            <div class="countbox clearfix"></div>
+            <div class="main-time"><span>Часа</span><span>Минути</span><span>Секунди</span></div>
+          </div>
+
+          <div class="main-price">
+            <div class="main-price-text">Промоция</div>
+            <div class="main-price-old al-cost-promo"><x-oldprice>158.01</x-oldprice> <x-currency>лев</x-currency></div>
+            <div class="main-price-new al-cost"><x-newprice>79</x-newprice> <x-currency>лев</x-currency></div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-12">
+          <img class="main-img" src="images/body-brush.png">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="use">
+    <div class="container">
+      <div class="use-top">ЗАЩОТО ВИ ТРЯБВА STEAM BRUSH?</div>
+      <div class="row">
+        <div class="col-md-3 col-xs-6">
+          <img class="use-img" src="images/use1.jpg">
+          <div class="use-text">ПОЧИСТВА МРЪСОТИЯТА ОТ КИЛИМА</div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <img class="use-img use-img2" src="images/use2.jpg">
+          <div class="use-text">ПРЕМАХВА СУХИТЕ ПЕТНА ОТ ДРЕХИТЕ</div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <img class="use-img" src="images/use3.jpg">
+          <div class="use-text">ПРЕМАХВА МРЪСОТИИТЕ НА ПОВЪРХНОСТТА ВЪВ КОЛАТА </div>
+        </div>
+        <div class="col-md-3 col-xs-6">
+          <img class="use-img use-img2" src="images/use4.jpg">
+          <div class="use-text">ГЛАДИ НЕЖНИТЕ ПЛАТОВЕ БЕЗ ПОВРЕДИ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="reason">
+    <div class="container">
+      <div id="ex1" class="reason-top">8 ПРИЧИНИ ЗА ДА КУПИТЕ STEAM BRUSH</div>
+      <div class="row">
+        <div class="col-md-4">
+          <img class="reason-img" src="images/reason-img.png">
+        </div>
+        <div class="col-md-8">
+          <div class="reason-list">
+            <p><span>1.</span> РАБОТИ НА ПЛАТОВЕТЕ БЕЗ СТРЕЛИРАНЕ ИЛИ УКРЕПВАНЕ НА ВЛАКНАТА В СРАВНЕНИЕ С ЮТИЯТА.ДАВА ОБЕМ, ЕЛАСТИЧНОСТЬ И НЕ НАМАЛЯВА ПЪРВИЧНАТА ЯРКОСТ</p>
+            <p><span>2.</span> ПАРНА ЧЕТКА- ПЕРФЕКТНА ЗА ОБРАБОТКА НА ВЪЛНЕНИТЕ ИЗДЕЛИЯ. ПОД ВЛИЯНИЕТО ПАРА НА КОЖАТА, НЯМА ДА ОСТАВЯ “СЛЕД” КОЖАТА СЪХРАНЯВА ЛЕКОТА И ЕСТЕСТВЕНАТА ФОРМА</p>
+            <p><span>3.</span> ДАВА СВЕЖ ПОГЛЕД КЪМ НЕЖНИТЕ МАТЕРИИ: ПАМУК,ЛИНА,ТРИКОТАЖ,ДАНТЕЛА. РАБОТИ ВНИМАТЕЛНО С ДЕКОРАТИВНИТЕ УКРАШЕНИЯ(ДИСКОВИ ПОЛИ,СТРУКТУРИ,ЕМБРОЙДЕРИ,БУТИНИ).</p>
+            <p><span>4.</span> ДЕЗЕНФИЦИРА, БЕЗ ИЗПОЛЗВАНЕ НА ПРОДУКТИ ЗА ПОЧИСТВАНЕ, МЕКИ ИГРАЧКИ И СПАЛНО БЕЛЬО, ТОВА Е ПЕРФЕКТНИЯТ МЕТОД ЗА ПОЧИСТВАНЕ, АКО ИМАТЕ МАЛКИ ДЕЦА ВЪВ КЪЩИ</p>
+            <p><span>5.</span> БЛАГОДАРЯ НА ВИСОКОТЕМПЕРАТУРНИЯТ ПРОДУКТ ОТ ПАРА STEAM BRUSH ПРЕМАХВА ЕФЕКТИВНО КЪРЖАЛИТЕ,РОСТКИТЕ,БАКТЕРИИТЕ</p>
+            <p><span>6.</span> ПАРОВАТА ЧЕТКА ЩЕ ВИ ПОМОГНИ ДА ОСВЕЖИТЕ И ПОЧИСТЕТИТЕ АВТОКРЕСЛАТА</p>
+            <p><span>7.</span> РЪЧНОТО УСТРОЙСТВО ИМА ВЕРТИКАЛНА ФУНКЦИЯ ЗА ПАРА, КОЯТО ЩЕ ВИ ПОЗВОЛИ ДА СЕ ГРИЖИТЕ ЗА ВАШИТЕ ДРЕХИ, НЕ СНИМАЙКИ ОТ ЗАКАЧАЛКАТА</p>
+            <p><span>8.</span> С ПОМОЩ НА ДОМАШНИЯТ МИНИ ОЧИСТИТЕЛ, ВИЕ МОЖЕТЕ ДА ПОЧИСТИТЕ ВАШИТЕ ЗАВЕСИ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img class="bord1" src="images/bord1.png">
+  </div>
+  <div class="why" id="ex2">
+    <div class="container">
+      <div class="why-top">ЗАЩО ТОЧНО STEAM BRUSH ?</div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="why-name">ОБИКНОВЕННА ЮТИЯ</div>
+          <img class="why-img" src="images/why1.jpg">
+          <div class="why-list">
+            <p>ОСТАВЯ ТЕЧНИ ПЛОЩИ НА ДРЕХИТЕ</p>
+            <p>НЕ СЕ СПРАВЯ СЪС СГЛАСЯВАНИЯТА НА ТЪКАНИТЕ И ОСТАВЯ СГЛАСЯВАНИЯ</p>
+            <p>ИМАТ ГОЛЕМИ РАЗМЕРИ БЕЗПОЛЕЗНИ КОМПОНЕНТИ</p>
+            <p>НЯМАТ ДОСТАТЪЧНО СИЛА ЗА ДА ПОЧИСТЯТ СУХИТЕ ПЕТНА</p>
+            <p>ДЕСТРУКТИВНО ВЛИЯНИЕ НА ВЬТРИШНАТА ТЕКСТУРА НА ТЬКАНИТЕ</p>
+            <p>НЕОБХОДИМА ДОПОЛНИТЕЛНА ГРИЖА</p>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="why-name">ПАРНАТА ЮТИЯ STEAM BRUSH</div>
+          <img class="why-img" src="images/why2.jpg">
+          <div class="why-list2">
+            <p>КОМПАКТНА</p>
+            <p>ЛЕСНО СЕ ИСПОЛЗВА</p>
+            <p>ВИСОКОКАЧЕСТВЕНО ПОЧИСТВАНЕ НА ВСИЧКИ ВИДОВЕ НА ТЪКАНИ</p>
+            <p>ИЗКЛЮЧВА СУХИТЕ ПЕТНА В ТРУДНОДОСТЪПНИТЕ ПОВЕРХНОСТИ</p>
+            <p>НЕ ДЕФОРМИРА ИЗДЕЛИЯТА ОТ ТЪНКИТЕ ТЪКАНИ</p>
+            <p>ПОТРЕБЯВА МАЛКО ЕЛЕКТРИЧЕСТВО</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="complect" id="ex3">
+    <div class="container">
+      <div class="complect-top">ХАРАКТЕРИСТИКА И ОБОРУДВАНЕ</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="complect-list">
+            ТЕХНИЧНИ ХАРАКТЕРИСТИКИ STEAM BRUSH
+            <p>• ДЮЗИ: С ПЛОСКА ПОВЕРХНОСТ И ЧЕТКА</p>
+            <p>• ВОДНИ БАК: 100 МЛ (15 МИНУТИ ПРОДЪЛЖИТЕЛНА ПАРА)</p>
+            <p>• ИЗМЕРВАТЕЛНИЯТ КУП: 50 МЛ</p>
+            <p>• ИНДИКАТОР НА ПОДГОТОВКАТА</p>
+            <p>• 5 ПАРНИ ГНЕЗДА</p>
+            <p>• ДОСТАВКА НА СИЛАТА: 110-220 В</p>
+            <p>• МОЩНОСТ: 800 W</p>
+            <p>• ЧАСТОТА: 50-60 Гц</p>
+            <p>• МАТЕРИАЛ ПЛАСТИК</p>
+            <p>• ЦВЯТ: БЯЛ</p>
+            <p>• ЦВЯТ НА ТРАНСПОРТЕН ВОДЕН БАК: СИН</p>
+            <p>• ДЪЛЖИНА НА КАБЕЛА 1,65 М</p>
+            <p>• РАЗМЕРА: 32.5Х10Х9</p>
+            <p>• ДЪЛЖИНА НА ДРЪЖКАТА: 12,5 СМ</p>
+            <p>• МАСА (В ЕДНАТА ДЮЗА): 900 ГР</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img class="complect-img" src="images/complect-img.png">
+          <div class="complect-list2">
+            ОБОРУДВАНЕ STEAM BRUSH
+            <p>• ПАРНА ЧЕТКА <br>2 ДЮЗИ:</p>
+            <p>• СМЕНЯЕМА ЧЕТКА С ПОВЕРХНОСТ ЗА ГЛАДЕНЕ</p>
+            <p>• СМЕНЯЕМА ЧЕТКА ЗА ОБИКНОВЕНО ГЛАДЕНЕ И ПАРНО ГЛАДЕНЕ, МЕРНА ЧАША ЗА ВОДА</p>
+          </div>
+          <div class="complect-instr" data-toggle="modal" data-target=".bs-example-modal-lg">ИНСТРУКЦИЯ ЗА УПОТРЕБА</div>
+          <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="gridSystemModalLabel">ИНСТРУКЦИЯ ЗА УПОТРЕБА</h4>
+                </div>
+                <div class="why-modal">
+                  Инсталирайте едната от парните дюзи, докато се загрее и докато щраката щракне.
+                  <br>Използвайки мерителната чаша, не наливайте повече от 100 мл вода във водната камера.Трябва да е чиста вода и затворете капачката на резервоара.(Този обем е достатъчен за 15 минути непрекъснато почистване.) Горният панел на четката е направен от прозрачна пластмаса, така че може да наблюдавате потока на водата в отделението и да го отворите отново ако е необходимо.
+                  <br>Свържете парната четка към източника на електроенергията.
+                  <br>Веднага щом индикаторът за отопление угасне и ще започне да се възпроизвежда пара, устройството може да се използва. За да регулирате мощността и площада на пара натиснете на бутона за пара, расположен на дръжката на устройството.
+                  <br>След гладене и задушаване извадете парната четка от мрежата, източете останалата течност от отделението за вода и извадете накрайника.
+                  <br>
+                  <br>Съвети за приложение:
+                  <br>
+                  <br>Не използвайте парната четка, ако в резервоара няма вода;
+                  <br>Не попылвайте водният отсек с почистващи препарати, аерозоли или химикали;
+                  <br>По време на работа на устройството индикаторът за отопление светва и угасва.Това е нормално, така ютията автоматично регулира температурата на подаване на пара;
+                  <br>Не забравяйте! Натиснете бутона за пара само за секунда,без да държите пръста си върху бутона за повече от 5 секунди; Само когато индикатора за отопление се изключи после го включете отново. Освен това по време на подаването на пара, натискайте бутона на пара всеки 2-4 секунди
+                  <br>Изключете четката от електрическата мрежа ако не я използвате повече от 20 минути преди почистване или при изливане или източване на вода
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <img class="bord2" src="images/bord2.png">
+  </div>
+  <div class="order">
+    <div class="container">
+      <div class="order-top">ПРИБЪРЗВАЙТЕ ДА КУПИТЕ STEAM BRUSH С ОТСТЪПКА -50%</div>
+      <div class="row">
+        <form method="POST" action="https://healthbestblog.space/cpatl/api.php" name="form-1" class="al-form">
+             
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="BG" selected="selected" value="21977">
+            Болгария        </option>
+    </select>
+
+              <div class="input-wrapper input-wrapper_inline">
+            <input id="name3" name="name" type="text" class="main-name" placeholder="Вашето име" required>
+            <label for="name3"></label>
+          </div>
+          <div class="input-wrapper input-wrapper_inline">
+            <input id="phone3" name="phone" type="tel" class="main-tell" placeholder="Вкарайте тук вашият номер на телефона" required>
+            <label for="phone3"></label>
+          </div>
+          <button type="submit" class="feedback main-button">ПОРЪЧАЙ С ОТСТЪПКА - 50%</button>
+                   <input type="hidden" name="stream_hid" value="nGNFQ38Y">
+      <input type="hidden" name="offer_id" value="2486">
+
+      
+      <input type="hidden" name="country" value="BG"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="rev" id="ex4">
+    <div class="container">
+      <div class="rev-top">ОТЗИВИ</div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row rev-block">
+            <div class="col-sm-4">
+              <img class="rev-img" src="images/rev1.jpg">
+            </div>
+            <div class="col-sm-8">
+              <div class="rev-name">ПЕТЪР,34 ГОДИНИ, ВАРНА</div>
+              <div class="rev-text">Аз много си мислих, какво да купя:мивка или прахосмукачка за колата. Но в крайна сметка реших и предпочетох Steam Brush. За разлика от мини пералнята, тя е компактна и няма много ненужни дюзи, които заемат място в колата. Той има функция за вертикално почистване със пара, има удобна дръжка и се справя с сухи петна по автомобилните седла</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row rev-block">
+            <div class="col-sm-4">
+              <img class="rev-img" src="images/rev2.jpg">
+            </div>
+            <div class="col-sm-8">
+              <div class="rev-name">СТОЯН, 28 ГОДИНИ, СОФИЯ</div>
+              <div class="rev-text">Парната четка беше купена като подарък на жена ми, която не я пуска от ръцете си, тя наистина хареса моят подарък. Опитах се да почистя килимите- оказа с е отличен резултат. Дори успя да се изпари старото мазно петно върху ризата,останала след корпоративния новогодишен купон.Добра стойност за парите, много съм доволен от покупката.</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row rev-block">
+            <div class="col-sm-4">
+              <img class="rev-img" src="images/rev3.jpg">
+            </div>
+            <div class="col-sm-8">
+              <div class="rev-name">РАЙНА, 32 ГОДИНИ, БУРГАС</div>
+              <div class="rev-text">Купих Steam Brush специално за почистване на детската стая и дезинфекция на детските играчки на сина ми.Но след като прочетох инструкциите, бях изненадана от съществуващите възможности на устройството. Сега съпругът ми понякога го използва понякога. Препоръчах Steam Brush на съседа си, сега очаквам тя да дойде и да се похвали с добрата покупка</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row rev-block">
+            <div class="col-sm-4">
+              <img class="rev-img" src="images/rev4.jpg">
+            </div>
+            <div class="col-sm-8">
+              <div class="rev-name">ЕМИЛИЯ, 46 ГОДИНИ, ВАРНА</div>
+              <div class="rev-text">Използвам парна четка от години и никога не ме напуска. Преди това използвах ютия за гладене на дрехи но с течение на времето ютията спря да се нагрява. Използвам парната четка като ютия, но дъщеря ми посъветва това чудо за премахване на петна от дрехите. За моя изненада нямаше граница!КАква технология е пристигнала! Преди, за да премахна петното, беше необходимо да се сварят дрехите, а сега след 5 минути лесно мога да се отърва от този проблем</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="how" id="ex5">
+    <div class="container">
+      <div class="how-top">КАК РАБОТИМ?</div>
+      <div class="row">
+        <div class="col-sm-3 col-xs-6">
+          <div class="how1"></div>
+          <div class="how-text">БЪРЗА ОБРАБОТКА НА ПОРЪЧКАТА</div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="how2"></div>
+          <div class="how-text">НАПЪЛНО СЕРФТИФИЦИРАНИ ПРОДУКТИ</div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="how3"></div>
+          <div class="how-text">ДОСТВАКА ОТ 1 ДО 3 РАБОТНИ ДНИ</div>
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          <div class="how4"></div>
+          <div class="how-text">Плащането става при доставката</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="main2">
+    <div class="container">
+      <div class="main-top">УМОРИХТЕ СЕ ОТ КОНВЕНЦИОНАЛНИТЕ ЮТИИ? <br>
+        ПОБЪРЗАЙТЕ ДА КУПИТЕ ПАРНАТА ЮТИЯ STEAM BRUSH
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 main-form">
+          <div class="main-act">ПРИБЪРЗВАЙТЕ ДА КУПИТЕ <br><span>С ОТСТЪПКА -50%</span></div>
+          <form method="POST" action="https://healthbestblog.space/cpatl/api.php" name="form-1" class="al-form">
+            
+    <select name="offer" class="form-control country_chang" style="display: none;">
+        <option data-country-code="BG" selected="selected" value="21977">
+            Болгария        </option>
+    </select>
+
+                <div class="input-wrapper">
+              <input id="name4" name="name" type="text" class="main-name" placeholder="Вашето име" required>
+              <label for="name4"></label>
+            </div>
+            <div class="input-wrapper">
+              <input id="phone4" name="phone" type="tel" class="main-tell" placeholder="Вкарайте тук вашият номер на телефона" required>
+              <label for="phone4"></label>
+            </div>
+            <button type="submit" class="feedback main-button">ПОРЪЧАЙ С ОТСТЪПКА - 50%</button>
+                     <input type="hidden" name="stream_hid" value="nGNFQ38Y">
+      <input type="hidden" name="offer_id" value="2486">
+
+      
+      <input type="hidden" name="country" value="BG"> 
+
+      <input type="hidden" name="sid1" value="alex">
+      <input type="hidden" name="sid2" value="alex2">
+      <input type="hidden" name="sid3" value="alex3">
+      <input type="hidden" name="redirect_url" value="https://amazinghealth.github.io/germitox-ita/success/index.html">
+          </form>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="timer">
+            <div class="main-timer">До края на промоцията се остана</div>
+            <div class="countbox clearfix"></div>
+            <div class="main-time"><span>Часа</span><span>Минути</span><span>Секунди</span></div>
+          </div>
+          <div class="main-price">
+            <div class="main-price-text">Промоция</div>
+            <div class="main-price-old al-cost-promo"><x-oldprice>158.01</x-oldprice> <x-currency>лев</x-currency></div>
+            <div class="main-price-new al-cost"><x-newprice>79</x-newprice> <x-currency>лев</x-currency></div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-12">
+          <img class="main-img" src="images/body2-brush.png">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-xs-6">
+        </div>
+      </div>
+    </div>
+  </div>
+<div style="text-align: center; padding: 20px; font-size: 18px;">
+  <p>OOO "OSTROV PRODAZH" OGRN: 1197746695530 VAT: 7708365555</p>
+<p>129090, Moscow, pereulok Zhivarev, house 8, stroenie 3, flat 16 email: ostrov.prodazh@mail.com Skype: ostrov.prodazh@mail.com</p> 
+
+
+    
+            <p class="conf-link doclinks">
+        <a class="nav-link" href="" onclick="window.open('/policy_en.php'); return false;">Privacy Policy</a>
+          |
+        <a class="nav-link" href="" onclick="window.open('/terms_en.php'); return false;">Terms & Conditions</a>
+      </p>
+      
+    
+</div>
+  <script type="text/javascript">
+    $('a[href^="#ex"]').click(function () {
+      var target = $(this).attr('href');
+      $('html, body').animate({ scrollTop: $(target).offset().top }, 800);
+      document.location.hash = target.slice(1);
+      return false;
+    });
+  </script>
+
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
